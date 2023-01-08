@@ -1,0 +1,23 @@
+apiVersion: opentelemetry.io/v1alpha1
+kind: OpenTelemetryCollector
+metadata:
+  name: otel
+spec:
+  config: |
+    receivers:
+      otlp:
+        protocols:
+          grpc:
+          http:
+    processors:
+
+    exporters:
+       prometheus:
+        endpoint: "0.0.0.0:9090"
+
+    service:
+      pipelines:
+        metrics:
+          receivers: [otlp]
+          processors: []
+          exporters: [prometheus]
